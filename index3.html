@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span>Message: {{ msg }}</span>
+        <br>
+        <span v-once>This will never change: {{ msg }}</span>
+    </div>
+    <div id="app2">    
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+
+    <div id="app3">    
+      <div v-bind:id="dynamicId"></div>
+    </div>
+
+    <div id="app4">    
+      <button v-bind:disabled="isButtonDisabled">Button</button>
+    </div>
+
+    <div id="app5">    
+      {{ number + 1 }}
+
+      {{ ok ? 'YES' : 'NO' }}
+      
+      {{ message.split('').reverse().join('') }}
+
+      <div v-bind:id="'list-' + id"></div>
+    </div>
+
+    <div id="app6">
+        el変数展開、clsnm変数展開
+        <p v-bind:[el]="clsnm"></p>
+    </div>
+
+    <div id="app7">
+        <div class="ring_wrapper">
+          <p>父親ブロックあり</p>
+          <div class="father" @click="fatherClick">
+            <button class="child"　@click="childClick">
+              呼び鈴
+            </button>
+          </div>
+        </div>
+        <div class="fatherBlock ring_wrapper">
+          <p>父親ブロックなし</p>
+          <div class="father" @click="fatherClick">
+            <button class="child" @click.stop="childClick">
+              呼び鈴
+            </button>
+          </div>
+        </div>
+      </div>
+
+    <script>
+      var vm = new Vue({
+        el: '#app',
+        data: {
+          msg: 'Hello Vue.js!'
+        }
+      })
+
+      var vm2 = new Vue({
+        el: '#app2',
+        data: {
+          rawHtml: `<span style="color:red">This shojuld bu red.</span>`
+        }
+      })
+
+      var vm3 = new Vue({
+        el: '#app3',
+        data: {
+          dynamicId: "app0"
+        }
+      })
+
+      var vm4 = new Vue({
+        el: '#app4',
+        data: {
+          isButtonDisabled: ""
+        }
+      })
+
+      var vm5 = new Vue({
+        el: '#app5',
+        data: {
+          number: 5,
+          ok: "",
+          message: "Hello Vue.js!",
+          id: 3 + 5
+        }
+      })
+
+      var vm6 = new Vue({
+        el: '#app6',
+        data: {
+          el: 'class',
+          clsnm : 'example',
+        },
+      })
+
+      const app = new Vue({
+        el: '#app7',
+        data: {
+          text: ''
+        },
+        methods: {
+          childClick() {
+            alert('彼女「たかし君！いらっしゃい！」')
+          },
+          fatherClick() {
+            alert('父「うちの子に何か用かい？」')
+          }
+        }
+      })
+      
+    </script>
+</body>
+</html>
